@@ -1,0 +1,116 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Register - ConnectHub</title>
+    <link rel="stylesheet" href="{% static 'core/style.css' %}">
+</head>
+
+<body>
+
+```
+<div class="container">
+
+    <div class="card">
+
+        <h1>✨ Create Your Account</h1>
+
+        <p>Join ConnectHub and connect with others!</p>
+
+        <br>
+
+        {% if error %}
+            <div class="comment">
+                <strong>⚠️ {{ error }}</strong>
+            </div>
+            <br>
+        {% endif %}
+
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <label for="username">
+                <strong>Username</strong>
+            </label>
+
+            <input
+                id="username"
+                type="text"
+                name="username"
+                placeholder="Enter your username"
+                required
+            >
+
+            <br><br>
+
+
+            <label for="email">
+                <strong>Email</strong>
+            </label>
+
+            <input
+                id="email"
+                type="email"
+                name="email"
+                placeholder="Enter your email"
+                required
+            >
+
+            <br><br>
+
+
+            <label for="password">
+                <strong>Password</strong>
+            </label>
+
+            <input
+                id="password"
+                type="password"
+                name="password"
+                placeholder="Create a password"
+                required
+            >
+
+            <br><br>
+
+
+            <label for="confirm_password">
+                <strong>Confirm Password</strong>
+            </label>
+
+            <input
+                id="confirm_password"
+                type="password"
+                name="confirm_password"
+                placeholder="Confirm your password"
+                required
+            >
+
+            <br><br>
+
+
+            <button type="submit">
+                🚀 Register
+            </button>
+
+        </form>
+
+
+        <br>
+
+        <p>
+            Already have an account?
+            <a href="{% url 'login' %}">Login here</a>
+        </p>
+
+    </div>
+
+</div>
+```
+
+</body>
+</html>

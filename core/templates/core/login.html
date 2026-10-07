@@ -1,0 +1,96 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Login - ConnectHub</title>
+    <link rel="stylesheet" href="{% static 'core/style.css' %}">
+</head>
+
+<body>
+
+```
+<div class="container">
+
+    <div class="card">
+
+        <h1>👋 Welcome Back!</h1>
+
+        <p>Login to your ConnectHub account.</p>
+
+        <br>
+
+
+        {% if error %}
+
+            <div class="comment">
+                <strong>⚠️ {{ error }}</strong>
+            </div>
+
+            <br>
+
+        {% endif %}
+
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+
+            <label for="username">
+                <strong>Username</strong>
+            </label>
+
+            <input
+                id="username"
+                type="text"
+                name="username"
+                placeholder="Enter your username"
+                required
+            >
+
+
+            <br><br>
+
+
+            <label for="password">
+                <strong>Password</strong>
+            </label>
+
+            <input
+                id="password"
+                type="password"
+                name="password"
+                placeholder="Enter your password"
+                required
+            >
+
+
+            <br><br>
+
+
+            <button type="submit">
+                🔐 Login
+            </button>
+
+        </form>
+
+
+        <br>
+
+
+        <p>
+            Don't have an account?
+            <a href="{% url 'register' %}">
+                Create an account
+            </a>
+        </p>
+
+    </div>
+
+</div>
+```
+
+</body>
+</html>

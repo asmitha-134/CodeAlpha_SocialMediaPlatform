@@ -1,0 +1,184 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Home - Social Media</title>
+    <link rel="stylesheet" href="{% static 'core/style.css' %}">
+</head>
+
+<body>
+
+```
+<!-- Navigation Bar -->
+<nav class="navbar">
+
+    <div class="logo">
+        ConnectHub
+    </div>
+
+    <div class="nav-links">
+        <a href="{% url 'home' %}">🏠 Home</a>
+        <a href="{% url 'create_post' %}">➕ Create Post</a>
+        <a href="{% url 'profile' %}">👤 My Profile</a>
+        <a href="{% url 'search_users' %}">🔎 Search Users</a>
+        <a href="{% url 'logout' %}">🚪 Logout</a>
+    </div>
+
+</nav>
+
+
+<!-- Main Content -->
+<div class="container">
+
+    <div class="card">
+
+        <h1>Social Media Platform</h1>
+
+        <p>
+            Welcome, <strong>{{ user.username }}</strong>! 👋
+        </p>
+
+    </div>
+
+
+    <h2>Posts</h2>
+
+
+    {% for post in posts %}
+
+    <div class="card">
+
+        <!-- Post Header -->
+        <h3>
+            👤 {{ post.user.username }}
+        </h3>
+
+
+        <!-- Follow -->
+        {% if post.user != request.user %}
+
+            <a href="{% url 'follow_user' post.user.id %}">
+                Follow / Unfollow
+            </a>
+
+        {% endif %}
+
+
+        <!-- Post Content -->
+        <p>
+            {{ post.content }}
+        </p>
+
+
+        <!-- Post Image -->
+        {% if post.image %}
+
+            <img
+                src="{{ post.image.url }}"
+                class="post-image"
+                alt="Post image"
+            >
+
+        {% endif %}
+
+
+        <!-- Date -->
+        <small>
+            {{ post.created_at }}
+        </small>
+
+
+        <!-- Like -->
+        <div class="actions">
+
+            <span>
+                ❤️ {{ post.likes.count }} Likes
+            </span>
+
+            <a href="{% url 'like_post' post.id %}">
+                Like / Unlike
+            </a>
+
+        </div>
+
+
+        <!-- Edit / Delete -->
+        {% if post.user == request.user %}
+
+            <div class="actions">
+
+                <a href="{% url 'edit_post' post.id %}">
+                    ✏️ Edit Post
+                </a>
+
+                <a href="{% url 'delete_post' post.id %}">
+                    🗑️ Delete Post
+                </a>
+
+            </div>
+
+        {% endif %}
+
+
+        <!-- Comments -->
+        <h4>💬 Comments</h4>
+
+        {% for comment in post.comments.all %}
+
+            <div class="comment">
+
+                <strong>
+                    {{ comment.user.username }}
+                </strong>:
+
+                {{ comment.content }}
+
+            </div>
+
+        {% empty %}
+
+            <p>
+                No comments yet.
+            </p>
+
+        {% endfor %}
+
+
+        <!-- Add Comment -->
+        <form
+            method="POST"
+            action="{% url 'add_comment' post.id %}"
+        >
+
+            {% csrf_token %}
+
+            <input
+                type="text"
+                name="content"
+                placeholder="Write a comment..."
+                required
+            >
+
+            <button type="submit">
+                💬 Comment
+            </button>
+
+        </form>
+
+    </div>
+
+    {% empty %}
+
+        <div class="card">
+            <p>No posts yet.</p>
+        </div>
+
+    {% endfor %}
+
+</div>
+```
+
+</body>
+</html>

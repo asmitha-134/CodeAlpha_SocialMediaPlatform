@@ -1,0 +1,100 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Create Post - ConnectHub</title>
+    <link rel="stylesheet" href="{% static 'core/style.css' %}">
+</head>
+
+<body>
+
+```
+<!-- Navigation Bar -->
+<nav class="navbar">
+
+    <div class="logo">
+        ConnectHub
+    </div>
+
+    <div class="nav-links">
+        <a href="{% url 'home' %}">🏠 Home</a>
+        <a href="{% url 'profile' %}">👤 My Profile</a>
+        <a href="{% url 'search_users' %}">🔎 Search Users</a>
+        <a href="{% url 'logout' %}">🚪 Logout</a>
+    </div>
+
+</nav>
+
+
+<div class="container">
+
+    <div class="card">
+
+        <h1>✨ Create a Post</h1>
+
+        <p>Share something with your ConnectHub community!</p>
+
+        <br>
+
+        <form
+            method="POST"
+            enctype="multipart/form-data"
+        >
+
+            {% csrf_token %}
+
+
+            <label for="content">
+                <strong>What's on your mind?</strong>
+            </label>
+
+            <textarea
+                id="content"
+                name="content"
+                rows="6"
+                placeholder="Write something..."
+                required
+            ></textarea>
+
+
+            <br><br>
+
+
+            <label for="image">
+                <strong>📷 Upload Image</strong>
+            </label>
+
+            <input
+                id="image"
+                type="file"
+                name="image"
+                accept="image/*"
+            >
+
+
+            <br><br>
+
+
+            <button type="submit">
+                🚀 Post
+            </button>
+
+        </form>
+
+
+        <br>
+
+
+        <a href="{% url 'home' %}">
+            ← Back to Home
+        </a>
+
+    </div>
+
+</div>
+```
+
+</body>
+</html>
